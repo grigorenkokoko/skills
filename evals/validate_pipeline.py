@@ -42,6 +42,7 @@ build = read("build-ios-app-concept/SKILL.md")
 release = read("prepare-ios-app-store-release/SKILL.md")
 privacy_reference = read("generate-ios-app-ideas/references/app-privacy-contract.md")
 privacy_template = read("generate-ios-app-ideas/assets/AppPrivacy.template.yml")
+readme = read("README.md")
 
 for name, text in (
     ("generate-ios-app-ideas", idea),
@@ -140,6 +141,22 @@ for needle in (
     "fails closed",
 ):
     require(privacy_reference, needle, "app-privacy-contract.md")
+
+for needle in (
+    "generate-ios-app-ideas",
+    "design-ios-app-concept",
+    "build-ios-app-concept",
+    "prepare-ios-app-store-release",
+    ".agents/skills",
+    "/skills",
+    "AppSpec.md",
+    "AppPrivacy.yml",
+    "release-ready",
+    "manual-device-checks.md",
+    "python3 evals/validate_pipeline.py",
+    "https://learn.chatgpt.com/docs/build-skills",
+):
+    require(readme, needle, "README.md")
 
 if ERRORS:
     print("Pipeline contract validation failed:")
