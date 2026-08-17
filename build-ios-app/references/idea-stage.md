@@ -1,9 +1,4 @@
----
-name: generate-ios-app-ideas
-description: Use when generating, refining, naming, or policy-approving a portrait-only iPhone concept that must satisfy the complete mandatory permissions, AppMetrica, backend, widget, notification-extension, privacy, and App Store review brief before design begins.
----
-
-# Generate iOS App Ideas
+# Idea and Policy Stage
 
 ## Goal
 
@@ -221,7 +216,7 @@ Include in `AppSpec.md`:
 - Selected conditional policy modules and accepted behavior.
 - App Store review-risk verdict, accepted mitigations, accepted decisions, and release blockers.
 
-Read `references/app-privacy-contract.md`, then create `AppPrivacy.yml` from `assets/AppPrivacy.template.yml`. Complete every semantic field that is knowable at this stage. Keep changing Apple constants, generated manifest entries, and App Store Connect selections as derived release-stage outputs rather than hard-coding future policy into this specification.
+Read `references/app-privacy-contract.md`, then create `AppPrivacy.yml` from `references/AppPrivacy.template.yml`. Complete every semantic field that is knowable at this stage. Keep changing Apple constants, generated manifest entries, and App Store Connect selections as derived release-stage outputs rather than hard-coding future policy into this specification.
 
 Do not add screen layouts, colors, UIKit structure, Xcode targets, or implementation details that belong to later skills.
 
@@ -231,4 +226,4 @@ When the user brings an idea, lead with the refined version of that idea. Proact
 
 When the user asks only for names, permission texts, extensions, or backend refinements, preserve the accepted parts of the existing idea and return only the requested section.
 
-When the user accepts an idea, pass the feasibility gate, prepare the `AppSpec.md` and `AppPrivacy.yml` handoff, and propose using `design-ios-app-concept`. Do not skip directly to implementation unless an explicitly approved design already exists. Stop before rendering screens or writing code.
+When the user accepts an idea, pass the feasibility gate, prepare the `AppSpec.md` and `AppPrivacy.yml` handoff, and return control to the orchestrator. Do not skip directly to implementation unless an explicitly approved design already exists. Stop before rendering screens or writing code.

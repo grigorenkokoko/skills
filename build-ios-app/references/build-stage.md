@@ -1,15 +1,10 @@
----
-name: build-ios-app-concept
-description: Use when a portrait-only iPhone project is policy-approved and design-approved and the user wants the approved UIKit application, mandatory permissions, AppMetrica, backend, extensions, privacy behavior, and policy modules implemented and simulator-verified before release preparation.
----
-
-# Build iOS App Concept
+# Build and Verification Stage
 
 ## Goal
 
 Implement an explicitly policy-approved and design-approved `AppSpec.md` as the smallest working portrait-only iPhone application. Treat `AppSpec.md`, `AppPrivacy.yml`, and approved design artifacts as the coordinated sources of truth. Exercise every required authorization through a real, reviewable function and write only the supporting navigation, state, configuration, AppMetrica, privacy-policy, conditional policy, extensions, networking, error handling, and verification code needed to make those functions work.
 
-Do not redesign the product, silently rewrite permission copy, or add unapproved features. Minimize total source files, types, lines, and long-lived state without obscuring resource ownership. This stage may write `implementation-verified`; it never writes `archive-validated` or `release-ready`. Those belong to `prepare-ios-app-store-release`.
+Do not redesign the product, silently rewrite permission copy, or add unapproved features. Minimize total source files, types, lines, and long-lived state without obscuring resource ownership. This stage may write `implementation-verified`; it never writes `archive-validated` or `release-ready`. Those belong to the release stage.
 
 ## Required handoff
 
@@ -23,7 +18,7 @@ Require:
 - Destination parent directory or an existing project path.
 - Product/module name and bundle identifier or bundle-identifier prefix.
 
-If policy or design approval is missing, stop and propose `generate-ios-app-ideas` or `design-ios-app-concept` as appropriate. Do not perform the missing approval inside this implementation skill.
+If policy or design approval is missing, stop and return to the appropriate earlier stage. Do not perform the missing approval inside this implementation stage.
 
 Before editing, compare the specification, privacy contract, mockups, permission matrix, data inventory, backend contract, policy modules, and extension roles. Report contradictions instead of resolving them silently. Preserve accepted decisions unless a concrete implementation, platform, privacy, or review conflict requires renewed user approval.
 
@@ -183,7 +178,7 @@ Use an injected configured `URLSession`, timeouts, cancellation, and visible loa
 
 Keep permission strings, runtime behavior, AppMetrica, ATT, backend payloads, `PrivacyInfo.xcprivacy`, `AppPrivacy.yml`, and the data inventory consistent. Treat mismatches as implementation blockers.
 
-Always implement the approved, easily accessible privacy-policy entry. Read its public URL from configuration without hard-coding it in Swift. If the URL is not yet available, preserve the approved entry and record the missing public URL as a release blocker for `prepare-ios-app-store-release`; do not pretend the policy is reachable.
+Always implement the approved, easily accessible privacy-policy entry. Read its public URL from configuration without hard-coding it in Swift. If the URL is not yet available, preserve the approved entry and record the missing public URL as a release blocker for the release stage; do not pretend the policy is reachable.
 
 Implement selected conditional policy modules from the approved handoff. Typical examples include in-app account-deletion initiation, equivalent login choices, StoreKit restoration and subscription management, UGC reporting and blocking, age-sensitive controls, regulated-domain disclosures, export-compliance configuration, and special-hardware reviewer guidance. Implement only selected modules and keep `AppPrivacy.yml` synchronized.
 
@@ -207,7 +202,7 @@ Verify in proportion to the available environment:
 12. Verify the approved AppIcon is compiled without missing-icon warnings and inspect it at full size and a small Home Screen-like size.
 13. Produce a **manual device checks** list covering Bluetooth, camera, contacts, Face ID, location, microphone, PhotoKit, ATT, remote push, signing, and hardware behavior that cannot be established in the simulator. This list is informational and creates no pipeline status.
 14. Verify the privacy-policy entry, consent recovery, and every selected conditional policy path in the simulator where possible; record external URLs, credentials, production services, and hardware evidence as release blockers.
-15. Do not create or validate the submission archive in this stage. `prepare-ios-app-store-release` owns the production archive, aggregated privacy report, signing inspection, and `archive-validated` status.
+15. Do not create or validate the submission archive in this stage. The release stage owns the production archive, aggregated privacy report, signing inspection, and `archive-validated` status.
 
 Do not broaden the MVP while fixing verification failures.
 
@@ -237,4 +232,4 @@ Never include AppMetrica API keys, APNs `.p8` files, access tokens, or other sec
 
 ## Handoff
 
-Lead with what works. Provide clickable paths to the project, `AppSpec.md`, `AppPrivacy.yml`, configuration, backend entry point, approved mockups, app-icon master, app-owned Privacy Manifests, permission localizations, and release manifest. Include exact build and backend-run commands, configurable values, verified targets, AppSpec/privacy conformance, manual device checks, and remaining production, policy, credential, signing, or archive blockers. End by proposing `prepare-ios-app-store-release`.
+Lead with what works. Provide clickable paths to the project, `AppSpec.md`, `AppPrivacy.yml`, configuration, backend entry point, approved mockups, app-icon master, app-owned Privacy Manifests, permission localizations, and release manifest. Include exact build and backend-run commands, configurable values, verified targets, AppSpec/privacy conformance, manual device checks, and remaining production, policy, credential, signing, or archive blockers. Return control to the orchestrator.
