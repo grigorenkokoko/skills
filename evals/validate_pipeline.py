@@ -40,8 +40,8 @@ idea = read("generate-ios-app-ideas/SKILL.md")
 design = read("design-ios-app-concept/SKILL.md")
 build = read("build-ios-app-concept/SKILL.md")
 release = read("prepare-ios-app-store-release/SKILL.md")
-privacy_reference = read("references/app-privacy-contract.md")
-privacy_template = read("assets/AppPrivacy.template.yml")
+privacy_reference = read("generate-ios-app-ideas/references/app-privacy-contract.md")
+privacy_template = read("generate-ios-app-ideas/assets/AppPrivacy.template.yml")
 
 for name, text in (
     ("generate-ios-app-ideas", idea),

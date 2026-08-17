@@ -1,0 +1,158 @@
+schema_version: 1
+status: idea-draft
+
+product:
+  name: pending
+  bundle_identifier: pending
+  app_spec: AppSpec.md
+
+permissions:
+  bluetooth:
+    required: true
+    usage_key: NSBluetoothAlwaysUsageDescription
+    feature: pending
+    trigger: pending
+    purpose_copy: pending
+    denial_behavior: pending
+    reviewer_path: pending
+    data_types: []
+  camera:
+    required: true
+    usage_key: NSCameraUsageDescription
+    feature: pending
+    trigger: pending
+    purpose_copy: pending
+    denial_behavior: pending
+    reviewer_path: pending
+    data_types: []
+  contacts:
+    required: true
+    usage_key: NSContactsUsageDescription
+    feature: pending
+    trigger: pending
+    purpose_copy: pending
+    denial_behavior: pending
+    reviewer_path: pending
+    data_types: []
+  face_id:
+    required: true
+    usage_key: NSFaceIDUsageDescription
+    feature: pending
+    trigger: pending
+    purpose_copy: pending
+    denial_behavior: pending
+    reviewer_path: pending
+    data_types: []
+  location_when_in_use:
+    required: true
+    usage_key: NSLocationWhenInUseUsageDescription
+    feature: pending
+    trigger: pending
+    purpose_copy: pending
+    denial_behavior: pending
+    reviewer_path: pending
+    data_types: []
+  microphone:
+    required: true
+    usage_key: NSMicrophoneUsageDescription
+    feature: pending
+    trigger: pending
+    purpose_copy: pending
+    denial_behavior: pending
+    reviewer_path: pending
+    data_types: []
+  photo_library_read:
+    required: true
+    usage_key: NSPhotoLibraryUsageDescription
+    feature: pending
+    trigger: pending
+    purpose_copy: pending
+    denial_behavior: pending
+    reviewer_path: pending
+    data_types: []
+  photo_library_add:
+    required: true
+    usage_key: NSPhotoLibraryAddUsageDescription
+    feature: pending
+    trigger: pending
+    purpose_copy: pending
+    denial_behavior: pending
+    reviewer_path: pending
+    data_types: []
+  app_tracking_transparency:
+    required: true
+    usage_key: NSUserTrackingUsageDescription
+    feature: pending
+    trigger: pending
+    purpose_copy: pending
+    denial_behavior: pending
+    reviewer_path: pending
+    data_types: []
+  push_notifications:
+    required: true
+    usage_key: null
+    feature: pending
+    trigger: pending
+    purpose_copy: pending
+    denial_behavior: pending
+    reviewer_path: pending
+    data_types: []
+
+data_inventory: []
+
+third_party_sdks:
+  - name: AppMetrica
+    required: true
+    version: pending
+    modules: []
+    collected_data: []
+    custom_events: []
+    tracking_behavior: pending
+    privacy_manifest_status: pending
+    signature_status: pending
+    domains: []
+
+tracking:
+  att_required: true
+  behavior_when_authorized: pending
+  behavior_when_denied: pending
+  cross_company_tracking: pending
+  advertising_identifier_use: pending
+
+domains:
+  api: pending
+  privacy_policy: pending
+  support: pending
+  analytics: []
+
+privacy_policy:
+  in_app_entry_required: true
+  in_app_entry_location: pending
+  public_url: pending
+  disclosures:
+    collection: []
+    purposes: []
+    recipients: []
+    retention: []
+    deletion: []
+    consent_withdrawal: []
+    contact: pending
+
+app_store_privacy:
+  collected_data_types: []
+  linked_to_identity: []
+  used_for_tracking: []
+  collection_purposes: []
+
+policy_modules:
+  account_deletion: pending
+  third_party_login: pending
+  digital_goods_and_subscriptions: pending
+  user_generated_content: pending
+  children_or_age_sensitive_content: pending
+  regulated_domain: pending
+  encryption_export_compliance: pending
+  special_hardware_review: pending
+
+current_documentation_checks: []
+release_blockers: []

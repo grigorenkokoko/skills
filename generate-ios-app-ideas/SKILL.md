@@ -1,13 +1,17 @@
 ---
 name: generate-ios-app-ideas
-description: Generate and refine user-provided or new general-audience portrait-only iPhone app concepts that credibly use Bluetooth, camera, contacts, Face ID, location, microphone, separate photo-library read and add access, advertising tracking, and push notifications. Produce feature-specific permission copy, a permission-review matrix, data/privacy inventory, and App Store review-risk verdict. Keep the releaseable MVP minimal; include a Lock Screen widget, notification extensions, and a minimal backend. Prefer understandable names using «YP», «Y P», or «Я П» while warning about compact «ЯП» and «YaP» variants. Use for iPhone app ideas, refinements, names, permission copy, extensions, privacy mapping, review-risk analysis, or MVP backend outlines, or when explicitly invoking $generate-ios-app-ideas.
+description: Use when generating, refining, naming, or policy-approving a portrait-only iPhone concept that must satisfy the complete mandatory permissions, AppMetrica, backend, widget, notification-extension, privacy, and App Store review brief before design begins.
 ---
 
 # Generate iOS App Ideas
 
 ## Goal
 
-Generate coherent, buildable, releaseable portrait-only iPhone iOS product ideas in which every required capability has a natural role. Center the MVP on the smallest coherent set of permission-backed user actions. Allow only the supporting navigation, state, configuration, analytics, privacy disclosures, extensions, backend, and error handling required to make those actions work. Do not invent unrelated product features. Keep this skill limited to ideation and product specification. Do not create an Xcode project, source code, rendered design, or backend. After the user accepts a concept and wants to continue, create or update only `AppSpec.md` as the handoff to the design skill.
+Generate coherent, buildable, releaseable portrait-only iPhone product ideas in which every mandatory capability has a natural role. Center the MVP on the smallest coherent set of permission-backed user actions. Allow only the supporting navigation, state, configuration, AppMetrica, privacy disclosures, extensions, backend, policy compliance, and error handling required to make those actions work.
+
+Run an **App Review feasibility gate** before approving a concept. A concept may keep every mandatory capability and still fail the gate when one exists only as a demonstration, the product lacks lasting utility, or the privacy and review story is internally inconsistent. Revise the concept or report the exact conflict; never hide it behind generic risk language.
+
+Keep this skill limited to ideation and product specification. Do not create an Xcode project, source code, rendered design, or backend. Use `idea-draft` while exploring. After the user accepts a concept and it passes the gate, create or update `AppSpec.md` and `AppPrivacy.yml` with status `policy-approved` as the handoff to the design skill.
 
 ## Inputs
 
@@ -30,6 +34,8 @@ Use any theme, audience, number of ideas, tone, or naming preference supplied by
 - Generate 5 distinct ideas.
 - Generate 5 name variants for each idea.
 - Prefer consumer applications with a small, credible MVP.
+- Give each alternative only a compact concept, mandatory-capability fit summary, and preliminary review-risk verdict.
+- Recommend one alternative, but wait for the user to select or approve a concept before producing the complete permission-review matrix, data inventory, backend contract, extension specification, or `AppPrivacy.yml`.
 - Answer in the user's language.
 
 Do not block on missing creative preferences. Make reasonable assumptions and state only assumptions that materially affect the result.
@@ -47,12 +53,49 @@ Make every idea satisfy all of the following:
 7. Keep the concept suitable for a general audience without age gates or content likely to create a material App Store review obstacle.
 8. Make the product exclusively an iOS app for iPhone. Do not propose iPad or iPadOS support, macOS, Mac Catalyst, Designed for iPhone/iPad on Mac distribution, visionOS or Apple Vision, watchOS, tvOS, or cross-platform and companion apps. Treat the widget and notification extensions as parts of the iPhone app.
 9. Make the iPhone application portrait-only. Keep every core flow usable without device rotation; do not propose landscape-only screens, interfaces, or features. Treat Lock Screen widget and notification layouts as portrait-oriented surfaces.
+10. Include configurable AppMetrica analytics and define its SDK-level collection, custom events, ATT-dependent behavior, retention, and disclosure. The application must remain useful when ATT is denied.
+11. Define an easily accessible in-app privacy-policy entry. The public privacy-policy and support URLs may remain release blockers until the release stage, but their required disclosures must be known now.
+12. Select every applicable conditional policy module using observable product features. Do not add modules that the product does not trigger.
+13. Do not mark a concept `policy-approved` until it passes the feasibility gate below.
 
 Treat the naming pattern as a strong preference, not a hard constraint. Prefer names containing or clearly expanding to «YP», «Y P», or «Я П», but keep a stronger natural name when forcing the pattern would make it unclear or awkward.
 
 Reject or adapt an idea when a permission, extension, or backend exists only to check a box. A permission is not justified merely because the app can display its system prompt. Full Contacts or Photo Library access must enable behavior that cannot honestly be represented by a privacy-preserving system picker alone. Face ID must protect or confirm meaningful data or an action. Advertising tracking must gate a real advertising, attribution, or personalization behavior and the app must remain useful when denied. Bluetooth must have a credible compatible-device scenario. If a required capability cannot be made core and reviewable without unrelated scope, report the conflict rather than disguising it. Avoid duplicating the same product with superficial theme changes.
 
 Avoid concepts centered on adult or sexual content, dating, gambling or betting, alcohol, tobacco, drugs, graphic violence, weapons, hate or extremism, self-harm, anonymous or unmoderated user-generated content, medical diagnosis or treatment claims, real-money speculation, crypto investment, surveillance, stalking, or illegal activity. Avoid requiring identity or age verification merely to access the core product. Treat these rules as review-risk reduction, not a guarantee of App Store approval.
+
+## App Review feasibility gate
+
+Evaluate the selected concept before creating the handoff. Record a pass or an exact unresolved conflict for each item:
+
+1. **Lasting utility**: the application delivers a recurring benefit beyond demonstrating system APIs.
+2. **Capability coherence**: all ten authorizations support the same product scenario and none exists as a disconnected demo button.
+3. **Data minimization within the brief**: full Contacts and Photo Library access enable approved behavior that a picker cannot provide; the scope of read data is still minimized.
+4. **Consent integrity**: requests occur after intentional actions, denial does not create coercive loops, and ATT denial preserves the core application.
+5. **Extension value**: the Lock Screen widget and both notification extensions expose accepted, reviewer-reachable product behavior.
+6. **Backend value**: the backend enables real synchronization and push-token handling rather than a health-check-only shell.
+7. **Privacy consistency**: permission copy, AppMetrica, backend payloads, APNs identifiers, retention, deletion, privacy labels, and policy disclosures tell the same story.
+8. **Review access**: non-obvious paths, hardware assumptions, sample data, and manual alternatives can be explained to App Review.
+9. **Conditional policy coverage**: every triggered module below has an implementable product and reviewer path.
+
+A failed item prevents `policy-approved`. Refine the concept while preserving the mandatory capability set. If no honest refinement exists, stop with a concise conflict report instead of generating misleading purpose strings.
+
+## Conditional policy modules
+
+Select modules only when the concept contains the observable trigger:
+
+| Module | Trigger | Required handoff decision |
+|---|---|---|
+| Account deletion | The app creates user accounts | In-app initiation, full deletion scope, retention exceptions, and reviewer path |
+| Third-party login | A social or third-party service authenticates the primary account | Equivalent login option and data-minimization behavior |
+| Digital goods and subscriptions | The app sells or unlocks digital functionality | StoreKit product, restoration, subscription management, and reviewer visibility |
+| User-generated content | Users publish or exchange content | Moderation, reporting, blocking, support contact, and deletion behavior |
+| Children or age-sensitive content | Audience or content makes age handling material | Current age-rating answers, parental controls, and data restrictions |
+| Regulated domain | Health, financial, gambling, alcohol, or another regulated behavior is retained after the general-audience screen | Claims, eligibility, regional availability, and evidence requirements |
+| Encryption | The app or backend uses encryption beyond the platform baseline or needs export classification | Export-compliance status and required documentation |
+| Special hardware | A core Bluetooth or accessory path needs uncommon hardware | Reviewer instructions, sample data, and a reviewable fallback or demo where feasible |
+
+Record selected modules and their decisions in both `AppSpec.md` and `AppPrivacy.yml`. Record non-applicable modules explicitly as `not-applicable` so later stages do not invent them.
 
 ## Naming rules
 
@@ -107,9 +150,9 @@ Then produce one consolidated data inventory covering app data, backend payloads
 
 Assign the concept a low, medium, or high App Store review risk. Name the most questionable permissions and the smallest product adjustment that would reduce risk. This is an evidence-based warning, not a guarantee of approval or a reason to discard the user's core idea automatically.
 
-## Generate each idea
+## Expand the selected concept
 
-For each idea, provide:
+After the user selects or approves a concept, provide:
 
 1. **Concept**: Describe the product, target user, and primary recurring action in 2–3 sentences.
 2. **Names**: Give the requested number of understandable name variants following the naming rules.
@@ -125,14 +168,17 @@ For each idea, provide:
    - Add or split endpoints only when the concept cannot demonstrate its required client-server or push flow with the merged operation. Keep the total to 1–3 endpoints.
    - Use memory or one JSON file. Avoid separate authentication, device-registration, CRUD, database, queue, admin, or recommendation layers unless they are unavoidable.
 7. **Data inventory**: Summarize local data, backend payloads, notification and installation identifiers, AppMetrica data, tracking use, retention, and deletion.
-8. **Fit check**: State why all permissions, extensions, and backend belong to the same releaseable product rather than being decorative.
-9. **Review safety**: State why the concept is appropriate for a general audience, then give the low/medium/high review-risk verdict, questionable permissions, and smallest risk-reducing adjustment.
+8. **AppMetrica and ATT**: Define SDK modules, custom event names without sensitive parameters, SDK-level collection, advertising or attribution behavior, denial behavior, and the disclosures this creates.
+9. **Privacy policy**: Define the in-app entry point and the exact collection, purpose, recipient, retention, deletion, consent-withdrawal, and contact statements the hosted policy must cover. Leave only the final public URL as a release blocker when unavailable.
+10. **Conditional policy modules**: Record every module as selected or `not-applicable` and define the accepted behavior for selected modules.
+11. **Fit check**: State why all permissions, AppMetrica, extensions, and backend belong to the same releaseable product rather than being decorative.
+12. **Feasibility verdict**: Report each gate item, the low/medium/high residual review risk, questionable permissions, accepted mitigations, and any blocking conflict. Only a concept with no blocking conflict may receive `policy-approved`.
 
 ## Quality checks
 
-Before answering, silently verify:
+Before creating the approved handoff, silently verify:
 
-- Every idea covers all 10 required permission or authorization categories, counting photo-library read and add access separately.
+- The selected concept covers all 10 required permission or authorization categories, counting photo-library read and add access separately.
 - Every required permission is exercised by a reachable user action, not only listed in configuration.
 - Every purpose string names the implemented feature and user benefit; no generic or misleading copy remains.
 - Every permission has authorization, denial, data-handling, privacy-label, and reviewer-path entries.
@@ -141,24 +187,28 @@ Before answering, silently verify:
 - Aim for most name options to contain or expand to `YP`, `Y P`, or `Я П`; allow exceptions when they are clearer or explicitly preferred by the user.
 - Do not generate `ЯП`, `YaP`, `Ya P`, or `YA P` name constructions; when supplied by the user, warn about unnecessary attention to the naming and offer a nearby replacement.
 - Names are understandable and related to the concept.
-- Every idea contains all 3 required extension types.
+- The selected concept contains all 3 required extension types.
 - The backend is minimal, preferably `/health` plus one merged `/sync`, and exposes a concrete reason to exist.
 - The data inventory covers on-device, backend, APNs/installation, AppMetrica, and tracking behavior without unsupported “no collection” claims.
+- AppMetrica behavior and ATT denial are concrete, disclosed, and consistent with the data inventory.
+- The privacy-policy disclosure set covers collection, purposes, recipients, retention, deletion, consent withdrawal, and contact behavior.
+- Every conditional policy module is selected with an accepted implementation path or marked `not-applicable` from observable product facts.
+- Every App Review feasibility gate item passes; otherwise the handoff remains `idea-draft`.
 - The answer contains a review-risk verdict and a smallest risk-reducing adjustment.
 - The concepts differ in audience and recurring behavior, not just visual theme.
 - Every concept is general-audience, avoids age gates, and is not built around a high-risk App Store review topic.
 - Every concept is explicitly iPhone-only and portrait-only, remains fully usable without rotation, and contains no iPad, Mac, Apple Vision, watch, TV, or cross-platform product surface.
 - No implementation work has been performed.
 
-## AppSpec handoff
+## Policy-approved handoff
 
-After the user explicitly accepts an idea and wants to continue, prepare `AppSpec.md` in the current application workspace. If no workspace exists yet, present the complete specification in the conversation and write it when a destination becomes available. Creating this product-specification file is the only filesystem output allowed in this skill.
+After the user explicitly accepts an idea, it passes the feasibility gate, and the user wants to continue, prepare `AppSpec.md` and `AppPrivacy.yml` in the current application workspace. If no workspace exists yet, present both complete artifacts in the conversation and write them when a destination becomes available. These two files are the only filesystem outputs allowed in this skill.
 
-Treat `AppSpec.md` as the source of truth for later design and implementation. Record approved choices exactly and do not silently change them. Mark unavailable or deliberately deferred values as `pending` instead of inventing them.
+Treat `AppSpec.md` as the source of truth for product behavior and approved copy. Treat `AppPrivacy.yml` as the source of truth for machine-readable permission, data, SDK, tracking, domain, retention, deletion, privacy-label, policy-module, and release-blocker facts. Record approved choices exactly and do not silently change them. Mark unavailable release values as release blockers instead of inventing them.
 
-Include:
+Include in `AppSpec.md`:
 
-- Specification status `idea-approved`.
+- Specification status `policy-approved` and the feasibility-gate verdict.
 - Product name, concept, audience, primary recurring action, and permission-centered MVP.
 - iPhone-only, portrait-only, and minimum-iOS requirements.
 - All 10 authorization categories, counting photo-library read and add separately.
@@ -167,7 +217,11 @@ Include:
 - Minimal backend endpoints and product-level request/response fields.
 - AppMetrica and ATT-dependent behavior.
 - Lock Screen widget, Notification Service Extension, and Notification Content Extension roles.
-- App Store review-risk verdict, accepted mitigations, accepted decisions, and pending decisions.
+- In-app privacy-policy entry and required hosted-policy disclosures.
+- Selected conditional policy modules and accepted behavior.
+- App Store review-risk verdict, accepted mitigations, accepted decisions, and release blockers.
+
+Create `AppPrivacy.yml` from `assets/AppPrivacy.template.yml`. Complete every semantic field that is knowable at this stage. Keep changing Apple constants, generated manifest entries, and App Store Connect selections as derived release-stage outputs rather than hard-coding future policy into this specification.
 
 Do not add screen layouts, colors, UIKit structure, Xcode targets, or implementation details that belong to later skills.
 
@@ -177,4 +231,4 @@ When the user brings an idea, lead with the refined version of that idea. Proact
 
 When the user asks only for names, permission texts, extensions, or backend refinements, preserve the accepted parts of the existing idea and return only the requested section.
 
-When the user accepts an idea, prepare the `AppSpec.md` handoff and propose using `design-ios-app-concept`. Do not skip directly to implementation unless an explicitly approved design already exists. Stop before rendering screens or writing code.
+When the user accepts an idea, pass the feasibility gate, prepare the `AppSpec.md` and `AppPrivacy.yml` handoff, and propose using `design-ios-app-concept`. Do not skip directly to implementation unless an explicitly approved design already exists. Stop before rendering screens or writing code.
