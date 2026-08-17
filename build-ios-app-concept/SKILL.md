@@ -1,30 +1,31 @@
 ---
 name: build-ios-app-concept
-description: Create, implement, build, launch, and verify a programmatic UIKit iPhone application from an explicitly approved AppSpec and visual design. Use only after the idea, feature-specific permission copy, permission-review matrix, data inventory, screens, permission UX, visual system, and app icon are approved. Build the smallest permission-centered iOS 15 application with all required permissions, configurable privacy-aware AppMetrica, low mutable static state, Lock Screen widget, notification service/content extensions, Privacy Manifest and entitlement validation, and a minimal working backend. Exclude iPad, Mac, Mac Catalyst, Designed for iPhone/iPad on Mac, visionOS, Apple Vision, storyboards, XIBs, and test targets.
+description: Use when a portrait-only iPhone project is policy-approved and design-approved and the user wants the approved UIKit application, mandatory permissions, AppMetrica, backend, extensions, privacy behavior, and policy modules implemented and simulator-verified before release preparation.
 ---
 
 # Build iOS App Concept
 
 ## Goal
 
-Implement an explicitly design-approved `AppSpec.md` as the smallest working portrait-only iPhone application. Treat the specification and approved design artifacts as the source of truth. Exercise every required authorization through a real, reviewable function and write only the supporting navigation, state, configuration, analytics, privacy, extensions, networking, error handling, and verification code needed to make those functions work.
+Implement an explicitly policy-approved and design-approved `AppSpec.md` as the smallest working portrait-only iPhone application. Treat `AppSpec.md`, `AppPrivacy.yml`, and approved design artifacts as the coordinated sources of truth. Exercise every required authorization through a real, reviewable function and write only the supporting navigation, state, configuration, AppMetrica, privacy-policy, conditional policy, extensions, networking, error handling, and verification code needed to make those functions work.
 
-Do not redesign the product, silently rewrite permission copy, or add unapproved features. Minimize total source files, types, lines, and long-lived state without obscuring resource ownership. This skill verifies local implementation quality but does not replace the later App Store preparation workflow.
+Do not redesign the product, silently rewrite permission copy, or add unapproved features. Minimize total source files, types, lines, and long-lived state without obscuring resource ownership. This stage may write `implementation-verified`; it never writes `archive-validated` or `release-ready`. Those belong to `prepare-ios-app-store-release`.
 
 ## Required handoff
 
 Require:
 
-- `AppSpec.md` with `idea-approved` and `design-status: approved`, or equivalent explicit statuses recorded in the file.
+- `AppSpec.md` with `policy-approved` and `design-status: design-approved`.
+- `AppPrivacy.yml` with the same accepted authorization, data, AppMetrica, tracking, domain, privacy-policy, App Store privacy, policy-module, and release-blocker facts.
 - Approved portrait mockups, screen inventory, permission-to-screen mapping, visual system, accessibility behavior, widget and notification layouts, and app-icon source.
 - Exact feature-specific permission and pre-permission copy for all required authorization categories.
-- Approved permission-review matrix, data inventory, AppMetrica and ATT behavior, extension roles, and minimal backend contract.
+- Approved permission-review matrix, data inventory, AppMetrica and ATT behavior, privacy-policy entry, selected conditional policy modules, extension roles, and minimal backend contract.
 - Destination parent directory or an existing project path.
 - Product/module name and bundle identifier or bundle-identifier prefix.
 
-If idea or design approval is missing, stop and propose `generate-ios-app-ideas` or `design-ios-app-concept` as appropriate. Do not perform the missing approval inside this implementation skill.
+If policy or design approval is missing, stop and propose `generate-ios-app-ideas` or `design-ios-app-concept` as appropriate. Do not perform the missing approval inside this implementation skill.
 
-Before editing, compare the specification, mockups, permission matrix, data inventory, backend contract, and extension roles. Report contradictions instead of resolving them silently. Preserve accepted decisions unless a concrete implementation, platform, privacy, or review conflict requires renewed user approval.
+Before editing, compare the specification, privacy contract, mockups, permission matrix, data inventory, backend contract, policy modules, and extension roles. Report contradictions instead of resolving them silently. Preserve accepted decisions unless a concrete implementation, platform, privacy, or review conflict requires renewed user approval.
 
 Ask only for missing blocking inputs. Allow an empty configurable AppMetrica key. Request Apple Developer Team details only when device signing or capabilities require them. Treat production backend, privacy-policy, support, Terms, and EULA values as non-blocking `pending` items for the App Store preparation workflow.
 
@@ -62,7 +63,7 @@ Apply these rules:
 
 ### Phase 1: Validate the handoff
 
-Create a compact implementation checklist from `AppSpec.md`: feature and permission mappings, exact copy, denial behavior, data flow, screen placement, extension roles, backend payload, analytics and tracking behavior, app icon, platform settings, and pending external credentials. Resolve only blocking contradictions with the user.
+Create a compact implementation checklist from `AppSpec.md` and `AppPrivacy.yml`: feature and permission mappings, exact copy, denial behavior, data flow, screen placement, privacy-policy entry, conditional policy modules, extension roles, backend payload, AppMetrica and tracking behavior, app icon, platform settings, and release blockers. Resolve only blocking contradictions with the user.
 
 ### Phase 2: Create the project
 
@@ -94,7 +95,7 @@ Do not create unit-test or UI-test targets, test files, fixtures, mocks, or test
 
 Create explicit entitlement files for capabilities the code uses. When a generator owns the project, declare entitlement values in its source specification, such as `project.yml` under `entitlements.properties`; regenerate and inspect emitted files instead of patching only generated output. Configure matching App Group values for the app and widget and Push Notifications for the main app where required. Treat provisioning profiles and signed entitlements as unverified until signing assets are available.
 
-Add `PrivacyInfo.xcprivacy` to every shipped app-owned target that directly uses required-reason APIs. Declare applicable standard `UserDefaults` and App Group reasons; a widget using App Group defaults needs its own manifest with the applicable reason such as `1C8F.1`. Inspect resolved SDK privacy manifests rather than assuming the main app or a dependency covers every target.
+Add `PrivacyInfo.xcprivacy` to every shipped app-owned target that directly uses required-reason APIs. Consult current primary Apple documentation for the applicable reasons instead of copying a permanently hard-coded code. A widget using App Group defaults needs its own applicable declaration. Inspect resolved SDK privacy manifests rather than assuming the main app or a dependency covers every target.
 
 Include the approved square 1024×1024 icon source in an `AppIcon` asset set and configure the main target to use it. Do not substitute an SF Symbol, add small text, pre-round, or mask the source.
 
@@ -106,13 +107,15 @@ Create one composition root in `SceneDelegate` or an instance-owned `AppFactory`
 
 Implement the approved visual system with programmatic Auto Layout, Dynamic Type text styles, semantic or explicitly approved colors, accessible UIKit controls, deliberate VoiceOver grouping and order, and non-color status cues. Match the approved screen inventory and states; do not interpret supporting code as permission to broaden the MVP.
 
+Implement the approved in-app privacy-policy entry and consent-withdrawal or Settings paths. Implement every selected conditional policy module exactly as approved; modules marked `not-applicable` add no code or UI. Keep reviewer paths reachable with approved sample data and special-hardware explanations.
+
 ### Phase 4: Build, launch, and verify
 
 Run the verification section below. Fix implementation drift and build or launch failures without adding product scope.
 
 ### Phase 5: Record the handoff
 
-Update the release handoff manifest and report verified behavior, configuration instructions, and external limitations. Do not claim App Store submission readiness while policy, production backend, signing, APNs, or device-only items remain pending.
+Update `AppPrivacy.yml` with verified implementation evidence, update the release handoff manifest, and report verified behavior, configuration instructions, and external limitations. Write `implementation-verified` only when simulator-verifiable behavior matches both contracts. Do not claim archive validation or App Store submission readiness.
 
 ## Architecture and lifetime rules
 
@@ -138,6 +141,8 @@ DEVELOPMENT_TEAM
 APP_GROUP_IDENTIFIER
 APPMETRICA_API_KEY
 API_BASE_URL
+PRIVACY_POLICY_URL
+SUPPORT_URL
 ```
 
 Read values once into an injected immutable `AppConfiguration`. Never bundle APNs private keys, access tokens, or other server secrets.
@@ -174,11 +179,15 @@ Let `/sync` also carry an installation identifier, lightweight bearer value, and
 
 Use an injected configured `URLSession`, timeouts, cancellation, and visible loading and error states. Keep local HTTP allowances debug-only. Allow the production HTTPS URL to remain `pending`, but do not disguise it as a release-ready service. When Apple signing or APNs credentials are unavailable, provide an honest request generator or sender stub and mark remote delivery unverified.
 
-## Privacy and future App Store handoff
+## Privacy, policy modules, and future App Store handoff
 
-Keep permission strings, runtime behavior, AppMetrica, ATT, backend payloads, `PrivacyInfo.xcprivacy`, and the data inventory consistent. Treat mismatches as implementation blockers.
+Keep permission strings, runtime behavior, AppMetrica, ATT, backend payloads, `PrivacyInfo.xcprivacy`, `AppPrivacy.yml`, and the data inventory consistent. Treat mismatches as implementation blockers.
 
-Do not add privacy-policy, support, Terms, or EULA screens unless the user explicitly requests them. Record missing URLs and future in-app entry points as `pending` for the separate App Store preparation skill. Never claim submission readiness while these or production/signing requirements remain pending.
+Always implement the approved, easily accessible privacy-policy entry. Read its public URL from configuration without hard-coding it in Swift. If the URL is not yet available, preserve the approved entry and record the missing public URL as a release blocker for `prepare-ios-app-store-release`; do not pretend the policy is reachable.
+
+Implement selected conditional policy modules from the approved handoff. Typical examples include in-app account-deletion initiation, equivalent login choices, StoreKit restoration and subscription management, UGC reporting and blocking, age-sensitive controls, regulated-domain disclosures, export-compliance configuration, and special-hardware reviewer guidance. Implement only selected modules and keep `AppPrivacy.yml` synchronized.
+
+Do not add Terms or EULA surfaces unless selected by the product or business model. Never claim submission readiness while privacy-policy, support, production, signing, APNs, policy, or credential blockers remain.
 
 ## Verification
 
@@ -190,40 +199,42 @@ Verify in proportion to the available environment:
 4. Start the backend, call `/health`, and exercise one real `/sync` round trip with the approved models.
 5. Search for storyboards, XIBs, test targets, app-owned singletons, mutable static storage, observers, `URLSession.shared`, and unsupported platform settings; fix violations or explain unavoidable framework calls.
 6. Exercise every permission feature from its approved visible trigger through authorized or simulator-available behavior and denial recovery. Capture screenshots and the accessibility hierarchy before and after important interactions. Retry a failed simulator interaction once, then classify the limitation honestly. Do not create XCTest or UI-test targets.
-7. Verify source, localized, and processed Info.plist purpose strings against `AppSpec.md` verbatim.
+7. Verify source, localized, and processed Info.plist purpose strings against `AppSpec.md` and `AppPrivacy.yml` verbatim.
 8. Verify empty-key AppMetrica behavior. With a valid test key, verify successful activation and one attempted custom `launch` event per process, not per foreground transition.
-9. Inspect each app-owned target's Privacy Manifest and resolved SDK manifests against actual APIs and the approved data inventory.
+9. Inspect each app-owned target's Privacy Manifest and resolved SDK manifests against actual APIs and `AppPrivacy.yml`.
 10. Inspect source entitlements and generator configuration for App Group and Push. When signing exists, inspect provisioning profiles and signed products; otherwise list the exact pending Apple Developer steps.
 11. Verify distinct extension bundle identifiers and deployment targets, `TARGETED_DEVICE_FAMILY = 1`, iPhone-only supported platforms, disabled Mac/Catalyst/Apple Vision compatibility, and portrait-only processed main-app Info.plist.
 12. Verify the approved AppIcon is compiled without missing-icon warnings and inspect it at full size and a small Home Screen-like size.
-13. State which Bluetooth, camera, contacts, Face ID, location, microphone, PhotoKit, ATT, remote push, signing, or hardware checks still require a physical device or external credentials.
-14. When signing is available, archive Release for Generic iOS Device and inspect signed app and extension entitlements. Otherwise record archive validation as signing-dependent.
+13. Produce a **manual device checks** list covering Bluetooth, camera, contacts, Face ID, location, microphone, PhotoKit, ATT, remote push, signing, and hardware behavior that cannot be established in the simulator. This list is informational and creates no pipeline status.
+14. Verify the privacy-policy entry, consent recovery, and every selected conditional policy path in the simulator where possible; record external URLs, credentials, production services, and hardware evidence as release blockers.
+15. Do not create or validate the submission archive in this stage. `prepare-ios-app-store-release` owns the production archive, aggregated privacy report, signing inspection, and `archive-validated` status.
 
 Do not broaden the MVP while fixing verification failures.
 
 ## AppSpec conformance
 
-Before handoff, compare the built application with every accepted item in `AppSpec.md` and the approved mockups.
+Before handoff, compare the built application with every accepted item in `AppSpec.md`, `AppPrivacy.yml`, and the approved mockups.
 
 For each authorization verify that the visible trigger exists on the approved screen, implemented behavior matches the approved feature, exact copy is present, denial and unavailable behavior matches the design, and accessed, stored, and transmitted data matches the inventory.
 
-Compare screen structure, terminology, control behavior, visual states, accessibility, backend payloads, extension output, AppMetrica and ATT behavior, and the icon with the approved handoff. Do not mark implementation complete while an accepted item is missing or materially different. Fix implementation drift without adding unrelated features.
+Compare screen structure, terminology, control behavior, visual states, accessibility, backend payloads, extension output, AppMetrica and ATT behavior, privacy-policy entry, conditional policy modules, and the icon with the approved handoff. Do not mark implementation complete while an accepted item is missing or materially different. Fix implementation drift without adding unrelated features.
 
 ## Release handoff manifest
 
 Create or update deterministic `Release/release-manifest.json` with:
 
 - Product name, version, build number, and all bundle identifiers.
+- Pipeline status `implementation-verified`; never `archive-validated` or `release-ready` in this stage.
 - App Group, capabilities, entitlement source, and verification status.
 - Permission keys, exact localized copy, trigger paths, denial behavior, data handling, and reviewer instructions.
 - Data inventory, tracking behavior, AppMetrica modules, and privacy status.
-- Backend, privacy-policy, and support URLs or `pending` markers.
+- Backend, privacy-policy, and support URLs or explicit release blockers.
 - Extension identifiers and roles.
 - Deterministic application states intended for future App Store screenshots.
-- Device-only, production-backend, signing, APNs, hardware, policy, and archive checks that remain unresolved.
+- Manual device checks and production-backend, signing, APNs, hardware, policy, privacy, and archive blockers that remain unresolved.
 
 Never include AppMetrica API keys, APNs `.p8` files, access tokens, or other secrets.
 
 ## Handoff
 
-Lead with what works. Provide clickable paths to the project, `AppSpec.md`, configuration, backend entry point, approved mockups, app-icon master, app-owned Privacy Manifests, permission localizations, and release manifest. Include exact build and backend-run commands, configurable values, verified targets, Release and archive status, AppSpec conformance, and remaining physical-device, production, policy, credential, or signing limitations.
+Lead with what works. Provide clickable paths to the project, `AppSpec.md`, `AppPrivacy.yml`, configuration, backend entry point, approved mockups, app-icon master, app-owned Privacy Manifests, permission localizations, and release manifest. Include exact build and backend-run commands, configurable values, verified targets, AppSpec/privacy conformance, manual device checks, and remaining production, policy, credential, signing, or archive blockers. End by proposing `prepare-ios-app-store-release`.
