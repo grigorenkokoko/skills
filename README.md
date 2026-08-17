@@ -1,6 +1,6 @@
-# Build iOS App Skill
+# Build Minimal iOS App for App Store Review
 
-Один Codex-скилл для создания portrait-only iPhone-приложения и подготовки его к App Store Review: идея, дизайн, реализация и релизный пакет в одном возобновляемом процессе.
+Один Codex-скилл для создания минимального portrait-only iPhone-приложения и подготовки его к App Store Review: идея, дизайн, реализация и релизный пакет в одном возобновляемом процессе.
 
 Скилл уменьшает число предсказуемых причин отклонения, но не гарантирует одобрение Apple. Финальное решение принимает App Review, а проверки на физическом iPhone выполняются владельцем приложения вручную.
 
@@ -53,21 +53,21 @@ Codex обнаруживает скиллы в `.agents/skills` текущего
 
 ```bash
 mkdir -p .agents/skills
-ln -s /absolute/path/to/skills/build-ios-app .agents/skills/build-ios-app
+ln -s /absolute/path/to/skills/build-minimal-ios-app-for-app-store-review .agents/skills/build-minimal-ios-app-for-app-store-review
 ```
 
 ### Для всех проектов пользователя
 
 ```bash
 mkdir -p "$HOME/.agents/skills"
-ln -s /absolute/path/to/skills/build-ios-app "$HOME/.agents/skills/build-ios-app"
+ln -s /absolute/path/to/skills/build-minimal-ios-app-for-app-store-review "$HOME/.agents/skills/build-minimal-ios-app-for-app-store-review"
 ```
 
 Замените `/absolute/path/to/skills` на абсолютный путь к клону репозитория. Если скилл не появился автоматически, перезапустите Codex. Подробнее: [официальная документация OpenAI по скиллам](https://learn.chatgpt.com/docs/build-skills).
 
 ## Пошаговый сценарий
 
-Скилл можно выбрать через `/skills`, упомянуть как `$build-ios-app` или вызвать естественным запросом. Работайте в папке конкретного приложения, а не внутри репозитория `skills`: все спецификации, дизайн и исходный код создаются в workspace приложения.
+Скилл можно выбрать через `/skills`, упомянуть как `$build-minimal-ios-app-for-app-store-review` или вызвать естественным запросом. Работайте в папке конкретного приложения, а не внутри репозитория `skills`: все спецификации, дизайн и исходный код создаются в workspace приложения.
 
 Каждый шаг заканчивается gate summary. В нём скилл перечисляет готовые артефакты, принятые решения, незакрытые блокеры и один конкретный вопрос об аппруве. Не отправляйте следующий большой prompt: ответьте на этот вопрос либо перечислите изменения.
 
@@ -80,14 +80,14 @@ ln -s /absolute/path/to/skills/build-ios-app "$HOME/.agents/skills/build-ios-app
 Начальный запрос со своей идеей:
 
 ```text
-$build-ios-app
+$build-minimal-ios-app-for-app-store-review
 Хочу приложение для совместного планирования семейных поездок. Начни с проверки идеи для App Review. Не переходи к дизайну без моего аппрува.
 ```
 
 Если идеи нет:
 
 ```text
-$build-ios-app
+$build-minimal-ios-app-for-app-store-review
 Предложи идеи простого потребительского iPhone-приложения и начни только этап выбора идеи.
 ```
 
@@ -246,7 +246,7 @@ AppMetrica настроена через локальную конфигурац
 
 | Ход | Пользователь | Что делает скилл |
 | --- | --- | --- |
-| 1 | `$build-ios-app Придумай приложение для семейных поездок` | Предлагает идеи, раскрывает выбранную концепцию и показывает idea gate |
+| 1 | `$build-minimal-ios-app-for-app-store-review Придумай приложение для семейных поездок` | Предлагает идеи, раскрывает выбранную концепцию и показывает idea gate |
 | 2 | `Уменьши MVP и не используй аккаунты` | Пересматривает текущую идею и повторяет gate без перехода дальше |
 | 3 | `Утверждаю идею, переходи к дизайну` | Записывает `policy-approved`, создаёт контракты и готовит дизайн |
 | 4 | `Дизайн утверждаю. Bundle ID: com.example.trip. Начинай реализацию` | Записывает `design-approved`, создаёт и simulator-проверяет проект |
@@ -274,7 +274,7 @@ AppMetrica настроена через локальную конфигурац
 Откройте ту же папку приложения и напишите:
 
 ```text
-$build-ios-app
+$build-minimal-ios-app-for-app-store-review
 Продолжи с первого незавершённого или неутверждённого этапа. Сначала покажи найденные статусы, approval log, артефакты и блокеры.
 ```
 
@@ -353,7 +353,7 @@ idea-draft
 ## Структура
 
 ```text
-build-ios-app/
+build-minimal-ios-app-for-app-store-review/
 ├── SKILL.md
 ├── scripts/
 │   └── validate_skill.py
@@ -374,7 +374,7 @@ build-ios-app/
 После изменения файлов выполните из корня репозитория:
 
 ```bash
-python3 build-ios-app/scripts/validate_skill.py
+python3 build-minimal-ios-app-for-app-store-review/scripts/validate_skill.py
 ```
 
 Валидатор проверяет единственность устанавливаемого скилла, обязательные файлы, frontmatter, stage routing, approval contract, разрешения, privacy schema, README и `version.json`.

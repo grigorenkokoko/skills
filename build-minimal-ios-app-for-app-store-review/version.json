@@ -1,6 +1,13 @@
 {
-  "version": "1.0.1",
+  "version": "2.0.0",
   "changelog": [
+    {
+      "version": "2.0.0",
+      "changes": [
+        "Renamed the public skill and folder from build-ios-app to build-minimal-ios-app-for-app-store-review",
+        "Updated installation, invocation, validation, and documentation paths for the new name"
+      ]
+    },
     {
       "version": "1.0.1",
       "changes": [
