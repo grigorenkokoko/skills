@@ -1,0 +1,29 @@
+{
+  "skill_name": "ios-app-store-review-pipeline",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Придумай простое iPhone-приложение для путешествий, но мне обязательно нужны Bluetooth, камера, контакты, Face ID, геолокация, микрофон, чтение и добавление фото, ATT, push, AppMetrica, backend и три extensions. Идея должна быть пригодна для App Store.",
+      "expected_output": "The idea skill keeps every mandatory capability, refuses decorative uses, runs an App Review feasibility gate, and produces policy-approved AppSpec.md plus AppPrivacy.yml only for a coherent selected concept.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Идея уже policy-approved. Спроектируй минимальные экраны, permission UX, privacy policy, widget, notification UI и состояния отказа перед реализацией.",
+      "expected_output": "The design skill consumes AppSpec.md and AppPrivacy.yml, includes privacy and applicable policy-module surfaces, renders the approved artifacts, and stops at design-approved.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Спецификация и дизайн утверждены. Собери приложение максимально быстро, без unit/UI test targets, но с обязательными разрешениями, AppMetrica, backend и extensions.",
+      "expected_output": "The build skill implements and verifies the approved project without test targets, keeps privacy declarations consistent, records manual hardware checks, and stops at implementation-verified.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Проект implementation-verified. Подготовь его к App Store Review: архив, privacy report, metadata, review notes, production URLs и текущие требования Apple. Не отправляй без моего разрешения.",
+      "expected_output": "The release skill checks current primary Apple requirements, validates the archive and privacy evidence, blocks release-ready on unresolved release blockers, leaves physical-device checks manual, and requires approval before external submission.",
+      "files": []
+    }
+  ]
+}
