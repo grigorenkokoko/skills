@@ -89,6 +89,7 @@ Require before `release-ready`:
 
 - final production bundle identifiers and versioning;
 - matching capabilities, entitlements, and provisioning for the app and every extension;
+- a valid production AppMetrica configuration whose activation, modules, ATT behavior, and disclosures match `AppPrivacy.yml`;
 - a reachable HTTPS production backend and the approved `/health` and `/sync` behavior;
 - a reachable public privacy-policy URL and support URL;
 - an easily accessible in-app privacy-policy entry that opens the configured policy;

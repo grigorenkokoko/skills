@@ -221,7 +221,7 @@ Include in `AppSpec.md`:
 - Selected conditional policy modules and accepted behavior.
 - App Store review-risk verdict, accepted mitigations, accepted decisions, and release blockers.
 
-Create `AppPrivacy.yml` from `assets/AppPrivacy.template.yml`. Complete every semantic field that is knowable at this stage. Keep changing Apple constants, generated manifest entries, and App Store Connect selections as derived release-stage outputs rather than hard-coding future policy into this specification.
+Read `references/app-privacy-contract.md`, then create `AppPrivacy.yml` from `assets/AppPrivacy.template.yml`. Complete every semantic field that is knowable at this stage. Keep changing Apple constants, generated manifest entries, and App Store Connect selections as derived release-stage outputs rather than hard-coding future policy into this specification.
 
 Do not add screen layouts, colors, UIKit structure, Xcode targets, or implementation details that belong to later skills.
 
