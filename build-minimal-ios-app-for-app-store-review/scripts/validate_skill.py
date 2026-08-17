@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-SKILL_ROOT = ROOT / "build-ios-app"
+SKILL_ROOT = ROOT / "build-minimal-ios-app-for-app-store-review"
 ERRORS: list[str] = []
 
 
@@ -33,15 +33,15 @@ def reject(text: str, needle: str, context: str) -> None:
 
 
 required_files = (
-    "build-ios-app/SKILL.md",
-    "build-ios-app/scripts/validate_skill.py",
-    "build-ios-app/references/idea-stage.md",
-    "build-ios-app/references/design-stage.md",
-    "build-ios-app/references/build-stage.md",
-    "build-ios-app/references/release-stage.md",
-    "build-ios-app/references/app-privacy-contract.md",
-    "build-ios-app/references/AppPrivacy.template.yml",
-    "build-ios-app/version.json",
+    "build-minimal-ios-app-for-app-store-review/SKILL.md",
+    "build-minimal-ios-app-for-app-store-review/scripts/validate_skill.py",
+    "build-minimal-ios-app-for-app-store-review/references/idea-stage.md",
+    "build-minimal-ios-app-for-app-store-review/references/design-stage.md",
+    "build-minimal-ios-app-for-app-store-review/references/build-stage.md",
+    "build-minimal-ios-app-for-app-store-review/references/release-stage.md",
+    "build-minimal-ios-app-for-app-store-review/references/app-privacy-contract.md",
+    "build-minimal-ios-app-for-app-store-review/references/AppPrivacy.template.yml",
+    "build-minimal-ios-app-for-app-store-review/version.json",
     "README.md",
 )
 for required_file in required_files:
@@ -49,6 +49,7 @@ for required_file in required_files:
         ERRORS.append(f"missing file: {required_file}")
 
 legacy_paths = (
+    "build-ios-app",
     "generate-ios-app-ideas",
     "design-ios-app-concept",
     "build-ios-app-concept",
@@ -62,19 +63,19 @@ for legacy_path in legacy_paths:
 skill_files = sorted(
     path.relative_to(ROOT).as_posix() for path in ROOT.glob("*/SKILL.md")
 )
-if skill_files != ["build-ios-app/SKILL.md"]:
+if skill_files != ["build-minimal-ios-app-for-app-store-review/SKILL.md"]:
     ERRORS.append(f"expected one installable skill, found: {skill_files}")
 
-skill = read("build-ios-app/SKILL.md")
-idea = read("build-ios-app/references/idea-stage.md")
-design = read("build-ios-app/references/design-stage.md")
-build = read("build-ios-app/references/build-stage.md")
-release = read("build-ios-app/references/release-stage.md")
-privacy_reference = read("build-ios-app/references/app-privacy-contract.md")
-privacy_template = read("build-ios-app/references/AppPrivacy.template.yml")
+skill = read("build-minimal-ios-app-for-app-store-review/SKILL.md")
+idea = read("build-minimal-ios-app-for-app-store-review/references/idea-stage.md")
+design = read("build-minimal-ios-app-for-app-store-review/references/design-stage.md")
+build = read("build-minimal-ios-app-for-app-store-review/references/build-stage.md")
+release = read("build-minimal-ios-app-for-app-store-review/references/release-stage.md")
+privacy_reference = read("build-minimal-ios-app-for-app-store-review/references/app-privacy-contract.md")
+privacy_template = read("build-minimal-ios-app-for-app-store-review/references/AppPrivacy.template.yml")
 readme = read("README.md")
 
-require(skill, "name: build-ios-app", "SKILL.md")
+require(skill, "name: build-minimal-ios-app-for-app-store-review", "SKILL.md")
 frontmatter_match = re.match(r"^---\n(.*?)\n---", skill, flags=re.DOTALL)
 if not frontmatter_match:
     ERRORS.append("SKILL.md: invalid YAML frontmatter boundaries")
@@ -200,19 +201,34 @@ for needle in (
     require(privacy_reference, needle, "app-privacy-contract.md")
 
 for needle in (
-    "build-ios-app",
+    "build-minimal-ios-app-for-app-store-review",
     ".agents/skills",
     "/skills",
-    "$build-ios-app",
+    "$build-minimal-ios-app-for-app-store-review",
+    "## Пошаговый сценарий",
+    "### Шаг 0. Открыть рабочую папку приложения",
+    "### Шаг 1. Утвердить идею",
+    "### Шаг 2. Утвердить дизайн",
+    "### Шаг 3. Проверить реализацию",
+    "### Шаг 4. Подготовить релиз",
+    "### Шаг 5. Разрешить внешнее действие",
+    "## Полный пример диалога",
+    "## Если нужна доработка",
+    "## Как продолжить после паузы",
+    "## Когда понадобятся внешние данные",
+    "Что создаёт скилл",
+    "Что проверить пользователю",
+    "Как продолжить",
     "AppSpec.md",
     "AppPrivacy.yml",
     "release-ready",
     "manual-device-checks.md",
-    "python3 build-ios-app/scripts/validate_skill.py",
+    "python3 build-minimal-ios-app-for-app-store-review/scripts/validate_skill.py",
 ):
     require(readme, needle, "README.md")
 
 for legacy_name in (
+    "build-ios-app",
     "generate-ios-app-ideas",
     "design-ios-app-concept",
     "build-ios-app-concept",

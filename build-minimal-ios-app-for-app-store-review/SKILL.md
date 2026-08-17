@@ -1,9 +1,9 @@
 ---
-name: build-ios-app
-description: Use when creating, continuing, implementing, validating, or preparing a portrait-only iPhone application that requires the complete permission, privacy, AppMetrica, backend, extension, and App Store Review brief.
+name: build-minimal-ios-app-for-app-store-review
+description: Use when creating, continuing, implementing, validating, or preparing a minimal portrait-only iPhone application that requires the complete permission, privacy, AppMetrica, backend, extension, and App Store Review brief.
 ---
 
-# Build iOS App
+# Build Minimal iOS App for App Store Review
 
 ## Overview
 
@@ -29,25 +29,25 @@ Do not use it for an unrelated existing application unless the user asks to adop
 Start a new application:
 
 ```text
-$build-ios-app Придумай и создай приложение для планирования семейных поездок.
+$build-minimal-ios-app-for-app-store-review Придумай и создай приложение для планирования семейных поездок.
 ```
 
 Start from a supplied idea:
 
 ```text
-$build-ios-app Проверь эту идею для App Review и начни пайплайн: <идея>.
+$build-minimal-ios-app-for-app-store-review Проверь эту идею для App Review и начни пайплайн: <идея>.
 ```
 
 Resume from the current workspace:
 
 ```text
-$build-ios-app Продолжи работу с текущего утверждённого этапа.
+$build-minimal-ios-app-for-app-store-review Продолжи работу с текущего утверждённого этапа.
 ```
 
 Prepare an implemented project for release:
 
 ```text
-$build-ios-app Проверь текущий проект и подготовь его к App Store Review. Ничего не отправляй без отдельного разрешения.
+$build-minimal-ios-app-for-app-store-review Проверь текущий проект и подготовь его к App Store Review. Ничего не отправляй без отдельного разрешения.
 ```
 
 ## Sources of truth
@@ -176,7 +176,7 @@ Do not add a physical-device status. Store those checks in `Release/manual-devic
 When modifying this skill, run from the repository root:
 
 ```bash
-python3 build-ios-app/scripts/validate_skill.py
+python3 build-minimal-ios-app-for-app-store-review/scripts/validate_skill.py
 ```
 
 Fix every reported contract mismatch before deployment.

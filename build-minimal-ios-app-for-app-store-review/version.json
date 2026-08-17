@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "changelog": [
+    {
+      "version": "2.0.0",
+      "changes": [
+        "Renamed the public skill and folder from build-ios-app to build-minimal-ios-app-for-app-store-review",
+        "Updated installation, invocation, validation, and documentation paths for the new name"
+      ]
+    },
+    {
+      "version": "1.0.1",
+      "changes": [
+        "Added an end-to-end usage walkthrough with prompts, artifacts, checks, approvals, revisions, resume flow, and release inputs"
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "changes": [
+        "Merged the four-stage iOS workflow into one installable skill",
+        "Added mandatory explicit user approval between stages",
+        "Added resumable status and approval-log routing"
+      ]
+    }
+  ],
+  "category": "ios-development",
+  "author": "grigorenkokoko"
+}
