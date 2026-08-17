@@ -1,5 +1,6 @@
 schema_version: 1
 status: idea-draft
+approval_log: []
 
 product:
   name: pending

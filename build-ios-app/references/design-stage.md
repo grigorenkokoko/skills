@@ -1,9 +1,4 @@
----
-name: design-ios-app-concept
-description: Use when a portrait-only iPhone concept is policy-approved and the user wants screen structure, permission UX, privacy and policy surfaces, visual mockups, accessibility behavior, widget and notification layouts, or an app icon before implementation.
----
-
-# Design iOS App Concept
+# Design Stage
 
 ## Goal
 
@@ -15,7 +10,7 @@ Do not create an Xcode project, targets, dependencies, application source code, 
 
 Read both `AppSpec.md` and `AppPrivacy.yml`. Preserve the accepted product, naming, permission, privacy, tracking, AppMetrica, extension, backend, policy-module, platform, orientation, and review-risk decisions. `AppSpec.md` owns behavior and approved copy; `AppPrivacy.yml` owns machine-readable privacy and release facts. Stop on disagreement instead of choosing one silently.
 
-Require `policy-approved` status and a passed App Review feasibility gate. If either source file is unavailable, the idea is still being selected, or a gate conflict remains, stop and propose `generate-ios-app-ideas` instead of reconstructing approval silently.
+Require `policy-approved` status and a passed App Review feasibility gate. If either source file is unavailable, the idea is still being selected, or a gate conflict remains, stop and return to the idea stage instead of reconstructing approval silently.
 
 Do not reopen accepted decisions unless they create a concrete feasibility, privacy, accessibility, or App Store review conflict. Explain the conflict and obtain approval before changing `AppSpec.md`.
 
@@ -98,8 +93,8 @@ After explicit approval, update `AppSpec.md` with:
 
 Update `AppPrivacy.yml` only with approved screen locations, reviewer paths, privacy-policy entry location, and policy-module UI evidence. Do not change collection, tracking, retention, SDK, or transmission meaning during design.
 
-Do not mark the design approved based on silence or partial feedback. After recording approval, propose `build-ios-app-concept`.
+Do not mark the design approved based on silence or partial feedback. After recording explicit approval, return control to the orchestrator.
 
 ## Handoff
 
-Lead with what the user approved. Provide clickable paths to `AppSpec.md`, `AppPrivacy.yml`, rendered mockups, and the app-icon master. List remaining release blockers and state explicitly that no Xcode project or application code was created by this skill. Propose `build-ios-app-concept`; do not skip directly to release preparation.
+Lead with what the user approved. Provide clickable paths to `AppSpec.md`, `AppPrivacy.yml`, rendered mockups, and the app-icon master. List remaining release blockers and state explicitly that no Xcode project or application code was created in this stage. Return control to the orchestrator; do not skip directly to release preparation.

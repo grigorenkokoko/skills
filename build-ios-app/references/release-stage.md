@@ -1,9 +1,4 @@
----
-name: prepare-ios-app-store-release
-description: Use when an implementation-verified portrait-only iPhone project must be archived, privacy-audited, documented, or prepared for App Store Connect and App Review under current Apple requirements.
----
-
-# Prepare iOS App Store Release
+# Release Stage
 
 ## Goal
 
@@ -21,7 +16,7 @@ Require:
 - The built Xcode project, approved design artifacts, app icon, permission localizations, backend source, production configuration surface, entitlements, and app-owned privacy manifests.
 - Product version, build number, final bundle identifiers, and an Apple Developer team when signing or archive validation requires it.
 
-If implementation evidence is missing or product behavior differs from either source of truth, stop and return the issue to `build-ios-app-concept`. Fix release configuration and disclosure drift here; do not redesign features or silently change permission purposes.
+If implementation evidence is missing or product behavior differs from either source of truth, stop and return the issue to the build stage. Fix release configuration and disclosure drift here; do not redesign features or silently change permission purposes.
 
 Do not create unit-test or UI-test targets and do not run unit or UI tests. This stage uses archive, static, configuration, service, metadata, and direct launch evidence. Physical-device work remains a **manual device checks** list for the user and creates no pipeline status.
 

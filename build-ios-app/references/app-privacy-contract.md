@@ -12,6 +12,7 @@
 - `privacy_policy` records the in-app entry and every disclosure the hosted policy must contain.
 - `app_store_privacy` records the semantic answers that later map to current App Store privacy questions.
 - `policy_modules` records selected or `not-applicable` compliance modules.
+- `approval_log` records explicit user decisions at stage boundaries: stage, decision, UTC timestamp, user actor, authorized next stage or external action, and a short non-sensitive evidence summary.
 - `release_blockers` contains unresolved values that prevent `release-ready`.
 
 ## Derived artifacts
@@ -19,6 +20,12 @@
 Info.plist purpose strings, `PrivacyInfo.xcprivacy`, entitlements, Xcode Privacy Report findings, privacy-policy prose, App Store Connect selections, and App Review notes are derived from the contract. Do not store mutable Apple reason codes or version requirements as permanent semantic truth.
 
 The release stage checks current primary Apple documentation, then compares every derived artifact with the contract. The pipeline **fails closed** when runtime behavior, AppMetrica configuration, backend traffic, manifests, policy text, or App Store disclosures disagree.
+
+## Approval rules
+
+A status alone never authorizes later work. Each transition to a new stage requires a matching `approval_log` entry created from an explicit user message after the prior stage gate summary. A blanket request made before the summary, silence, partial feedback, or approval for another artifact is not valid evidence.
+
+If an approved artifact changes materially, treat the matching approval as stale, return to that stage, present the revised gate summary, and request approval again. Keep evidence summaries short and do not copy secrets or sensitive user content into the log.
 
 ## Status rules
 
