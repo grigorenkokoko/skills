@@ -1,6 +1,12 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "changelog": [
+    {
+      "version": "1.0.1",
+      "changes": [
+        "Added an end-to-end usage walkthrough with prompts, artifacts, checks, approvals, revisions, resume flow, and release inputs"
+      ]
+    },
     {
       "version": "1.0.0",
       "changes": [
